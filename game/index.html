@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tic Tac Toe Game</title>
+    <script src='script.js' defer></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <h1>Come enjoy playing some old school tic tac toe against a computer!</h1>
+    <h3>
+        you will play as X
+    </h3>
+
+    <div class="tic-tac-toe" id="board">
+        <div id="0" class="cell">O</div>
+        <div id="1" class="cell"></div>
+        <div id="2" class="cell"></div>
+        <div id="3" class="cell"></div>
+        <div id="4" class="cell"></div>
+        <div id="5" class="cell"></div>
+        <div id="6" class="cell"></div>
+        <div id="7" class="cell"></div>
+        <div id="8" class="cell"></div>
+    </div>
+
+
+    <div class="questions" id="questions">
+
+        <label>How many games do you want to play? </label><input type='text' id='gamesToPlay' size="4" /><br /><br />
+        <label>Do you want to start first or second? (we will alternate who goes first for each subsequent game)</label>
+        <div>
+            <input type="radio" id="first" name="start" value="1">
+            <label for="first">First</label>
+        </div>
+        <div>
+            <input type="radio" id="second" name="start" value="2">
+            <label for="second">Second</label>
+        </div>
+        <br />
+        <div>
+            <label>Provide a fun screen name:</label><input type='text' id='screenname' size="25" /><br /><br />
+            <button onclick="beginGames()">Begin</button>
+        </div>
+    </div>
+
+
+    <div Id="scores" class="scores">
+        <h3 id="gameCount">You are playing game 1 of 2</h3>
+        <h2>Scores</h2>
+        <label id="player1Name"></label><input type='text' id='p1score' readonly size="4" /><br />
+        <label>Computer : </label><input type='text' id='p2score' readonly size="4" /><br />
+        <label>Ties: </label><input type='text' id='tie' readonly size="4" /><br /><br />
+        <div>
+            <button onclick="resetGame()">Reset</button>
+            <button id="nextGame" onclick="nextGame()">Next Game</button>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
