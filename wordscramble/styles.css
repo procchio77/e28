@@ -1,0 +1,30 @@
+body {
+    background: #20262E;
+    padding: 20px;
+    font-family: Helvetica;
+  }
+  
+  h1 {
+    font-size:3em;
+    margin-bottom:15px;
+  }
+  
+  
+  #app {
+    background: #fff;
+    border-radius: 4px;
+    padding: 20px;
+    transition: all 0.2s;
+  }
+  
+  
+  .mysteryWord {font-size:2em;}
+  .gameon {margin-bottom:20px;font-weight:bold;}
+  
+  
+  div { margin-bottom:15px;}
+  p { margin-bottom:15px;}
+  
+  #feedback {color:#fff;padding:1em;}
+  .correct {background: #228B22;}
+  .wrong {background: #B22222;}

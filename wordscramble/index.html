@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Word Scramble</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src='script.js' defer></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div id="app" v-cloak>
+
+   <div>
+     <h1>Word Scramble</h1>
+     <!-- Enter Player Name -->
+     <div v-if="!playerName">
+       <label for='playerName'>Enter Your player name:</label>
+       <input type='text' id='playerName' v-model.lazy='playerName'>
+       <button>Let's Play</button>
+     </div>
+        
+      
+      <div v-if="playerName">
+      
+       <!-- Choose Difficulty -->
+       <div>
+         <p class="gameon">Game on, {{ playerName }} !</p>
+         <div>
+            Choose your difficulty level:
+            <select v-model='difficultyLevel' @change="onDifficultyChange()">
+              <option value=''>Choose one...</option>
+              <option value=0>Easy</option>
+              <option value=3>Medium</option>
+              <option value=6>Difficult</option>
+            </select>
+        </div>
+      </div>
+
+       <!-- Guesses -->
+       <div>
+        <p>Your mystery word is: <span class="mysteryWord"> {{ scrambledWord }} </span></p>
+        <p>Hint: {{ hint }} </p>
+       <p>
+         Your guess: 
+         <input type='text' id='guess' v-model.lazy='guess'>
+         <button v-on:click="submitGuess">submitGuess</button>
+       </p>
+     </div>
+
+       <!-- Feedback -->
+       <div id="feedback" v-if="guess" v-bind:class='{ correct: correct, wrong: !correct }'> {{feedback}} 
+          <button v-if='correct' v-on:click="playAgain">Play again</button>
+       </div>
+       
+       
+
+   </div>
+   
+   </div>
+
+ </div>  
+
+</body>
+
+</html>
