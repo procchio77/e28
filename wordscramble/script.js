@@ -32,7 +32,7 @@ let app = new Vue({
       console.log('Player name..')
     },
 
-    //Knuth/Fisher Yates shuffle - might return the word unscrambled.
+    //Knuth/Fisher Yates shuffle
     shuffleWord: function (word) {
       var a = word.split(""),
         b = a.length;
@@ -42,6 +42,11 @@ let app = new Vue({
         a[i] = a[j];
         a[j] = tmp;
       }
+      //make sure the shuffle doesn't return word
+      if (a.join("") == word) {
+        return this.shuffleWord(word);
+      }
+
       return a.join("");
     },
 
@@ -83,13 +88,11 @@ let app = new Vue({
     },
 
     playAgain: function () {
-      this.difficultyLevel = 0;
+      this.difficultyLevel = 0; //set back to easy
       this.mysteryWord = "";
       this.guess = "";
       this.hint = "";
-      this.randomArrayIndex = -1;
       this.correct = null;
-      this.userSubmitGuess = null;
       this.onDifficultyChange();
 
     }
