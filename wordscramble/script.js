@@ -18,6 +18,7 @@ let app = new Vue({
     mysteryWord: '',
     correct: null,
     guess: '',
+    userSubmitGuess: null,
     hint: '',
     randomArrayIndex: -1,
 
@@ -45,8 +46,8 @@ let app = new Vue({
     },
 
     setRanomIndexByDifficulty: function () {
-      let x = parseInt(this.difficultyLevel) + 2;
-      let m = parseInt(this.difficultyLevel);
+      let x = this.difficultyLevel + 2;
+      let m = this.difficultyLevel;
       let arrayIndex = Math.floor(Math.random() * (x - m + 1)) + m;
 
       if (arrayIndex == this.randomArrayIndex) {
@@ -62,10 +63,14 @@ let app = new Vue({
       this.mysteryWord = this.words[this.randomArrayIndex][0];
       this.hint = this.words[this.randomArrayIndex][1];
       this.difficultyLevel = '';
+      this.userSubmitGuess = null;
+      this.feedback = '';
+      this.guess = '';
 
     },
 
     submitGuess: function () {
+      this.userSubmitGuess = true;
       if (this.guess.toLowerCase() === this.mysteryWord) {
         this.correct = true;
         this.feedback = "Awesome job! You got it!";
@@ -84,7 +89,9 @@ let app = new Vue({
       this.hint = "";
       this.randomArrayIndex = -1;
       this.correct = null;
+      this.userSubmitGuess = null;
       this.onDifficultyChange();
+
     }
 
   },
