@@ -1,13 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+    <script src='script.js' defer></script>
+    <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
-    <div id='app' v-cloak>
-        
+
+    <script type='text/x-template' id='round-info'>
+        <div>
+            <h2>Round History</h2>
+            <ul>
+                <li>Round #: {{ number }}</li>
+                <li>Winner: {{ winner }}</li>
+                <li>Player 1 Score: {{ player1score }}</li>
+                <li>Computer Score: {{ computerscore }}</li>
+                <li>Ties: {{ ties }}</li>
+            </ul>
+        </div>
+    </script>
+
+    <div id="app" v-cloak>
+        <h1>Come enjoy playing some old school tic tac toe against a computer!</h1>
+        <h3>
+            you will play as X
+        </h3>
+
+        <div class="tic-tac-toe">
+            <div v-for='cell in cells' v-bind:key='cell.id' v-on:click='nextTurn(cell.id)'
+                v-bind:class='{highlightWinner: cell.highlighted}' class="cell">
+                <span> {{cell.text}} </span>
+            </div>
+
+            <div v-if="isEndGame">
+                <button v-on:click='playAgain'>Play Again</button>
+                <button v-on:click='reset'>Start Over</button>
+            </div>
+
+        </div>
+
+
+        <div id="feedback" v-bind:class='{winner: winner}'>
+            {{ gameMessage }}
+        </div>
+
+        <round-info v-for='round in rounds' v-bind:key='round.number' v-bind:number='round.number'
+            v-bind:winner='round.winner' v-bind:player1score='player1Score' v-bind:computerscore='computerScore'
+            v-bind:tie='tie'>
+        </round-info>
+
     </div>
+
 </body>
+
 </html>

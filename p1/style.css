@@ -1,0 +1,35 @@
+    
+.tic-tac-toe 
+{
+	width: 500px;
+	height: 500px;
+	margin: 0 auto;
+    color: #fff;
+	display: grid;
+	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+    
+.cell {
+  border: 1px solid #ccc;
+  font-size: 5em;
+  font-weight: bold;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+  display: flex;
+}
+
+.highlightWinner {color:orange;}
+
+.cell:hover{
+    background-color:#ccc;
+    cursor: pointer;
+}
+
+.scores { display:none;margin-top:2em;}
+.questions { display:block;}
+h3 { color: orange;}
+
+.winner {color:green};
