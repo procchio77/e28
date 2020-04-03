@@ -4,8 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Word Scramble</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
-  <script src='script.js' defer></script>
+  <script src='js/master.js' defer></script>
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -51,13 +50,8 @@
         </div>
 
         <!-- Feedback -->
-        <div id="feedback" v-if='userSubmitGuess' v-bind:class='{correct: correct, wrong : !correct }'>
-          {{feedback}}
-          <button v-if='correct' v-on:click='playAgain'>Play again</button>
-        </div>
-
-
-
+        <game-feedback :usersubmitguess='userSubmitGuess' :feedback='feedback' :correct='correct'></game-feedback>
+        <button v-if='correct' v-on:click='playAgain'>Play again</button>
       </div>
 
     </div>

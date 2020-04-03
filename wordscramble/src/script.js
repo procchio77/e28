@@ -1,3 +1,6 @@
+import Vue from 'vue';
+import FeedBack from './components/FeedBack.vue'
+
 let app = new Vue({
   el: "#app",
   data: {
@@ -24,6 +27,9 @@ let app = new Vue({
 
   },
 
+  components: {
+    'game-feedback': FeedBack
+  },
 
   //Methods
   methods: {
