@@ -14,7 +14,7 @@
  2. Choose a datacenter
  3. Choose a unique cluster name
  4. Select a project
- 5.  Secure Database Cluster
+ 5. Secure Database Cluster
  6. Add a Database
  7. Add Tables and Data for API
 
