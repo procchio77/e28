@@ -35,7 +35,7 @@ export default new Vuex.Store({
                 context.commit('setStocks', response);
             });
         },
-        setStockSector(context) {
+        setStockSectors(context) {
             app.api.all('stockcategories').then(response => {
                 context.commit('setStockSectors', response);
             });

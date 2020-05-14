@@ -1,24 +1,11 @@
-# p2
+# Project 3
++ By: Patrick Monserratt
++ Production URL: <http://e28p3.patrickrocchio.me/>
 
-## Project setup
-```
-npm install
-```
+## Outside resources
++ https://vuelidate.js.org/
++ https://stackoverflow.com/questions/16242449/regex-currency-validation
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Notes for instructor
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
