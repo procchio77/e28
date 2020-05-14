@@ -1,10 +1,10 @@
 <template>
         <tr>
           <td>{{ stock.companyname }}</td>
-          <td>{{ stock.symbol}}</td>
-          <td>${{ stock.price}}</td>
+          <td>{{ stock.symbol }}</td>
+          <td>${{ stock.price }}</td>
           <td> 
-            <router-link class='stock' 
+            <router-link class='stock' :id='stock.symbol'  data-test='buy-link'
             :to='{ name: "buy stock", params: {symbol: stock.symbol, price: stock.price }}'>
             Buy
             </router-link>

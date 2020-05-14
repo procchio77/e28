@@ -5,36 +5,66 @@
 
       <div class="form-control">
         <label for="symbol">Symbol</label>
-        <input type="text" v-model="stockorder.symbol" id="symbol"/>
+        <input type="text" v-model="stockorder.symbol" id="symbol" data-test='sell-stock-symbol-input'/>
+        <div v-if="$v.stockorder.symbol.$error">
+          <div class="form-feedback-error"
+            v-if="!$v.stockorder.symbol.required">
+            Stock Symbol is required.
+          </div>
+        </div>
       </div>
 
       <div class="form-control">
       <label for="shares">Shares Qty</label>
-      <input type="text" v-model="stockorder.shares" id="shares" />
+      <input type="text" v-model="stockorder.shares" id="shares" data-test='sell-stock-shares-input' />
+      <div v-if="$v.stockorder.shares.$error">
+          <div class="form-feedback-error" v-if="!$v.stockorder.shares.required">
+            Shares is required.
+          </div>
+          <div class="form-feedback-error" v-if="!$v.stockorder.shares.minValue">
+            You have to sell at least 1 share.
+          </div>
+        </div>
       </div>
-    
+
       <div class="form-control">
       <label for="price">Market Price</label>
-      <input type="text" v-model="stockorder.price" id="price" />
+      <input type="text" v-model="stockorder.price" id="price" data-test='sell-stock-price-input' />
+      <div v-if="$v.stockorder.shares.$error">
+            <div class="form-feedback-error" v-if="!$v.stockorder.price.required">
+              Stock Price is required.
+            </div>
+            <div class="form-feedback-error" v-if="!$v.stockorder.price.numeric">
+              Please input a valid price.
+            </div>
       </div>
+      </div>
+
 
       <div class="form-control">
       <label for="ordertotal">Estimated Credit</label>
-      <input type="text" v-model="orderTotal" id="ordertotal" />
+      <input type="text" v-model="orderTotal" id="ordertotal" data-test='sell-stock-ordertotal-input' />
       </div>
 
-      <button type="submit" @click.prevent="addStockOrder">Sell</button>
+      <button type="submit" @click.prevent="addStockOrder" data-test='sell-stock-button'>Sell</button>
+
+
+      <div class="form-feedback-error" v-if="$v.$anyError">
+        Please correct the above errors
+      </div>
 
       <transition name="fade">
-        <div class="alert" v-if="added">Your order was successful!</div>
+        <div data-test='stock-sold-confirmation' class="alert" v-if="added">Your order was successful!</div>
       </transition>
+
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
 import * as app from "@/common/app.js";
 import { uuid } from "vue-uuid";
+import { required, minValue, numeric } from "vuelidate/lib/validators";
 
 export default {
   name: "",
@@ -53,26 +83,52 @@ export default {
       },
     };
   },
+  validations: {
+    stockorder: {
+      symbol: {
+        required,
+      },
+
+      shares: {
+        required,
+        minValue: minValue(1),
+      },
+
+      price: {
+        required,
+        numeric,
+        minValue: minValue(0.01),
+      },
+    },
+  },
+
   methods: {
     addStockOrder: function() {
+    this.$v.$touch();
+     if (this.$v.$anyError == false) {
       //set orderid
       this.stockorder.orderid = uuid.v1();
       this.stockorder.orderdate = new Date();
       this.stockorder.ordertotal =
-        this.stockorder.shares * this.stockorder.price;
+      this.stockorder.shares * this.stockorder.price;
       this.stockorder.ordertype = "sell";
-      app.api.add("stockorder", this.stockorder).then((id) => {
-        console.log("Stock order was added with the order number of: " + id);
-        this.added = true;
-        setTimeout(() => (this.added = false), 3000);
-        this.stockorder = {
-          symbol: "",
-          shares: "",
-          price: "",
-          orderid: "",
-          orderdate: "",
-        };
-      });
+      app.api.add("stockorder", this.stockorder).then((response) => {
+          if (response.includes("Error")) {
+            alert(response);
+          } else {
+              this.$v.$reset();
+              this.added = true;
+              setTimeout(() => (this.added = false), 3000);
+              this.stockorder = {
+              symbol: "",
+              shares: "",
+              price: "",
+              orderid: "",
+              orderdate: "",
+            };
+          }
+        });
+      }
     },
   },
   

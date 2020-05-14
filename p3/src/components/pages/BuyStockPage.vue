@@ -5,7 +5,8 @@
 
       <div class="form-control">
         <label for="symbol">Symbol</label>
-        <input type="text" v-model="stockorder.symbol" id="symbol" />
+        <input type="text" v-model="stockorder.symbol" id="symbol"
+            data-test='stock-symbol-input'/>
 
         <div v-if="$v.stockorder.symbol.$error">
           <div
@@ -19,19 +20,12 @@
 
       <div class="form-control">
         <label for="shares">Shares Qty</label>
-        <input type="text" v-model="stockorder.shares" id="shares" />
-
+        <input type="text" v-model="stockorder.shares" id="shares" data-test='stock-shares-input' />
         <div v-if="$v.stockorder.shares.$error">
-          <div
-            class="form-feedback-error"
-            v-if="!$v.stockorder.shares.required"
-          >
+          <div class="form-feedback-error" v-if="!$v.stockorder.shares.required">
             Shares is required.
           </div>
-          <div
-            class="form-feedback-error"
-            v-if="!$v.stockorder.shares.minValue"
-          >
+          <div class="form-feedback-error" v-if="!$v.stockorder.shares.minValue">
             You have to buy at least 1 share.
           </div>
         </div>
@@ -39,8 +33,8 @@
 
       <div class="form-control">
         <label for="price">Stock Price</label>
-        <input type="text" v-model="stockorder.price" id="price" />
-
+        <input type="text" v-model="stockorder.price" id="price"
+         data-test='stock-price-input' />
         <div v-if="$v.stockorder.shares.$error">
           <div class="form-feedback-error" v-if="!$v.stockorder.price.required">
             Stock Price is required.
@@ -53,7 +47,7 @@
 
       <div class="form-control">
         <label for="ordertotal">Estimated Costs</label>
-        <input
+        <input data-test='stock-total-input'
           readonly="true"
           type="text"
           v-model="orderTotal"
@@ -61,14 +55,14 @@
         />
       </div>
 
-      <button type="submit" value="Buy" @click="addStockOrder">Buy</button>
+      <button type="submit" value="Buy" @click="addStockOrder" data-test='buy-stock-button'>Buy</button>
 
       <div class="form-feedback-error" v-if="$v.$anyError">
         Please correct the above errors
       </div>
 
       <transition name="fade">
-        <div class="alert" v-if="added">Your order was successful!</div>
+        <div data-test='stock-added-confirmation' class="alert" v-if="added">Your order was successful!</div>
       </transition>
     </div>
   </div>
@@ -77,7 +71,6 @@
 <script>
 import * as app from "@/common/app.js";
 import { uuid } from "vue-uuid";
-//import { required, interger, numeric, minValue, decimal } from 'vuelidate/lib/validators';
 import { required, minValue, numeric } from "vuelidate/lib/validators";
 
 export default {
@@ -126,7 +119,7 @@ export default {
         this.stockorder.orderid = uuid.v1();
         this.stockorder.orderdate = new Date();
         this.stockorder.ordertotal =
-          this.stockorder.shares * this.stockorder.price;
+        this.stockorder.shares * this.stockorder.price;
         this.stockorder.ordertype = "buy";
 
         app.api.add("stockorder", this.stockorder).then((response) => {

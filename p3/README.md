@@ -5,6 +5,7 @@
 ## Outside resources
 + https://vuelidate.js.org/
 + https://stackoverflow.com/questions/16242449/regex-currency-validation
++ https://www.cypress.io/
 
 ## Notes for instructor
 1. used local storage to keep tabs on what the latest selection of sector the user makes.
